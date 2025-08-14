@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cedris — About Us</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add('theme-init');}catch(e){document.documentElement.setAttribute('data-theme','dark');document.documentElement.classList.add('theme-init');}})();</script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="Cedris logo" class="logo" />
+      <span>Cedris</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="designs.html">Our Designs</a>
+      <a href="design-yourself.html">Design For Yourself</a>
+      <a href="about.html" class="active">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <button class="theme-toggle" id="themeToggle">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="section">
+      <h1>About Us</h1>
+      <p>
+        Cedris is a proudly Rwandan creative printing company, founded by passionate young entrepreneurs with one mission —
+        to make custom printing simple, fast, and fun for everyone.
+      </p>
+      <p>
+        We believe your ideas deserve to be seen. That’s why we built a space where you can design exactly what you want —
+        from T‑shirts and mugs to posters, business cards, and more — and have it printed with care and delivered without hassle.
+      </p>
+      <p>
+        Based in the heart of Kigali City, on KN 76 Street, Downtown, Cedris is more than just a printing service. We’re a team
+        of innovators helping people bring their imagination to life. Whether you’re creating for personal use, events, or your
+        business, we make sure you get quality prints that match your vision.
+      </p>
+      <h3>Our promise</h3>
+      <ul>
+        <li><strong>Easy design tools</strong> — create your print in minutes.</li>
+        <li><strong>Fast service</strong> — because your time matters.</li>
+        <li><strong>Quality results</strong> — every detail counts.</li>
+      </ul>
+      <p>At Cedris, your design is our passion — and your satisfaction is our success.</p>
+    </section>
+
+    <section class="card section">
+      <h2>What we do</h2>
+      <ul>
+        <li>Custom apparel printing (T‑shirts, hoodies, polos, caps)</li>
+        <li>Drinkware and gifts (mugs, plates, water bottles)</li>
+        <li>Business stationery (business cards, flyers, posters, stickers)</li>
+        <li>Large‑format display (feather flags, roll‑up banners, vinyl)</li>
+        <li>Design assistance to refine and finalize your concept</li>
+      </ul>
+    </section>
+
+    <section class="card section">
+      <h2>Product sourcing (how it works)</h2>
+      <p>
+        You have two options: either provide your own item for us to print on, or ask us to procure the product on your behalf.
+        We do not retail products like clothing, plates, or mugs; when we source items for you, their cost is added to the
+        printing fees, and you receive the finished product.
+      </p>
+      <p class="muted">
+        You can also specify exactly what we should buy for you (type, color, size, quantity) and we will include it in your quote.
+      </p>
+    </section>
+
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Cedris. All rights reserved.</p>
+  </footer>
+  <script src="theme.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+

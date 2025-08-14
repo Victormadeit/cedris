@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cedris — Our Designs</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="Cedris logo" class="logo" />
+      <span>Cedris</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="designs.html" class="active">Our Designs</a>
+      <a href="design-yourself.html">Design For Yourself</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="section">
+      <h1>Our Designs</h1>
+      <p class="muted">A selection of banners, apparel, mugs and more. Click any image to view full size.</p>
+    </section>
+
+    <section class="gallery card">
+      <div class="grid">
+        <img src="T1.png" alt="T-shirt 1" />
+        <img src="T2.png" alt="T-shirt 2" />
+        <img src="T3.png" alt="T-shirt 3" />
+        <img src="T4.png" alt="T-shirt 4" />
+        <img src="T5.png" alt="T-shirt 5" />
+        <img src="T6.png" alt="T-shirt 6" />
+        <img src="H1.png" alt="Hoodie 1" />
+        <img src="H2.png" alt="Hoodie 2" />
+        <img src="H3.png" alt="Hoodie 3" />
+        <img src="H4.png" alt="Hoodie 4" />
+        <img src="H5.png" alt="Hoodie 5" />
+        <img src="BN1.png" alt="Banner 1" />
+        <img src="BN2.png" alt="Banner 2" />
+        <img src="BN3.png" alt="Banner 3" />
+        <img src="BN4.png" alt="Banner 4" />
+        <img src="BN5.png" alt="Banner 5" />
+        <img src="mug.png" alt="Mug 1" />
+        <img src="mug2.png" alt="Mug 2" />
+        <img src="plate.png" alt="Plate design" />
+        <img src="t shirt.png" alt="T shirt mockup" />
+        <img src="feather flag banner.png" alt="Feather flag banner" />
+        <img src="roll up banner.png" alt="Roll up banner" />
+        <img src="tote bug.png" alt="Tote bag" />
+        <img src="P1.png" alt="Print P1" />
+        <img src="P2.png" alt="Print P2" />
+        <img src="P3.png" alt="Print P3" />
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Cedris. All rights reserved.</p>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.querySelectorAll('.grid img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => window.open(img.src, '_blank'));
+    });
+  </script>
+</body>
+</html>
+

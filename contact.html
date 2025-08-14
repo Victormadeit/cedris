@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cedris — Contact Us</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add('theme-init');}catch(e){document.documentElement.setAttribute('data-theme','dark');document.documentElement.classList.add('theme-init');}})();</script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="Cedris logo" class="logo" />
+      <span>Cedris</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="designs.html">Our Designs</a>
+      <a href="design-yourself.html">Design For Yourself</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html" class="active">Contact Us</a>
+      <button class="theme-toggle" id="themeToggle">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="section">
+      <h1>Contact Us</h1>
+      <p class="muted">Have questions or want a quote? Send us a message and we’ll get back to you.</p>
+    </section>
+
+    <section class="card section">
+      <form class="form" id="contactForm">
+        <div>
+          <label>Name</label>
+          <input class="input" type="text" name="name" placeholder="Your name" required />
+        </div>
+        <div>
+          <label>Email</label>
+          <input class="input" type="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div>
+          <label>Message</label>
+          <textarea name="message" placeholder="How can we help?" required></textarea>
+        </div>
+        <button class="btn primary" type="submit">Send message</button>
+        <p id="contactStatus" class="muted"></p>
+      </form>
+    </section>
+
+    <section class="card section">
+      <h2>Reach us</h2>
+      <p class="muted">We’re online — follow or DM us. Our handles are natural variations of <strong>cedrissolutions</strong>.</p>
+      <div class="socials">
+        <a class="social" href="https://x.com/cedrissolutions" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M18.244 2H21l-6.54 7.48L22 22h-6.828l-5.35-6.48L3.6 22H1l7.158-8.192L2 2h6.828l4.98 5.992L18.244 2Zm-2.395 18h2.264L8.24 4h-2.3l9.909 16Z"/></svg>
+          <span>@cedrissolutions</span>
+        </a>
+        <a class="social" href="https://facebook.com/cedrissolutions.rw" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M22 12.07C22 6.48 17.52 2 11.93 2 6.34 2 1.86 6.48 1.86 12.07c0 4.99 3.64 9.13 8.4 9.93v-7.03H7.9v-2.9h2.36V9.41c0-2.33 1.39-3.62 3.52-3.62 1.02 0 2.09.18 2.09.18v2.3h-1.18c-1.16 0-1.52.72-1.52 1.46v1.75h2.59l-.41 2.9h-2.18V22c4.76-.8 8.4-4.94 8.4-9.93Z"/></svg>
+          <span>@cedrissolutions.rw</span>
+        </a>
+        <a class="social" href="https://instagram.com/cedrissolutions_" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm6.5-.75a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Z"/></svg>
+          <span>@cedrissolutions_</span>
+        </a>
+        <a class="social" href="https://snapchat.com/add/cedris_solutions" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2c3.2 0 5.5 2.43 5.5 5.5 0 3.1-.64 3.76-.3 4.63.26.63.86.99 1.43 1.32.4.23.77.45.87.7.13.36-.13.7-.52.86-.5.2-1.08.23-1.38.26-.06.45-.23 1.2-.7 1.87-.58.82-1.44 1.35-2.64 1.52-.1.3-.28.74-.65 1.18-.5.62-1.25 1.16-2.61 1.16s-2.1-.54-2.6-1.16c-.38-.44-.56-.88-.66-1.18-1.2-.17-2.06-.7-2.64-1.52-.47-.67-.64-1.42-.7-1.87-.3-.03-.88-.06-1.38-.26-.4-.16-.66-.5-.53-.86.1-.25.47-.47.88-.7.56-.33 1.16-.69 1.42-1.32.35-.87-.3-1.53-.3-4.63C6.5 4.43 8.8 2 12 2Z"/></svg>
+          <span>@cedris_solutions</span>
+        </a>
+      </div>
+      <p class="muted"><strong>Emergency only:</strong> If you have an emergency issue, reach us at <a href="tel:+250789707757">+250 789 707 757</a>.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Cedris. All rights reserved.</p>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('contactStatus');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      status.textContent = 'Thanks! Your message has been recorded locally.';
+    });
+  </script>
+</body>
+</html>
+

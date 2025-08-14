@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cedris — Home</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preload" href="logo.png" as="image" />
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add('theme-init');}catch(e){document.documentElement.setAttribute('data-theme','dark');document.documentElement.classList.add('theme-init');}})();</script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="Cedris logo" class="logo" />
+      <span>Cedris</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="designs.html">Our Designs</a>
+      <a href="design-yourself.html">Design For Yourself</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <button class="theme-toggle" id="themeToggle">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg" id="slideA" style="opacity:1; background-image: url('t shirt.png');"></div>
+      <div class="hero-bg hidden" id="slideB" style="background-image: url('hood.png');"></div>
+      <div class="hero-overlay">
+        	<h1><span id="morphText" class="morph-text">Choose a design</span></h1>
+        <p>Pick from our ready-made designs or choose a blank product (t-shirt, hoodie, mug, banner, tote, plate), add your idea, and we’ll craft it and print it for you.</p>
+        <div class="cta-group">
+          <a class="btn primary" href="design-yourself.html">Design your own</a>
+          <a class="btn" href="designs.html">See our designs</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <h2>What we can do for you</h2>
+    </section>
+
+    <section class="features">
+      <div class="feature">
+        <img src="t.png" alt="T-shirts" />
+        <h3>T-Shirts</h3>
+        <p>From minimal text to full graphics, printed on quality tees.</p>
+      </div>
+      <div class="feature">
+        <img src="hood.png" alt="Hoodies" />
+        <h3>Hoodies</h3>
+        <p>Cozy prints and embroidery-style looks on hoodies.</p>
+      </div>
+      <div class="feature">
+        <img src="mug.png" alt="Mugs" />
+        <h3>Mugs</h3>
+        <p>Photo mugs, logo mugs, gifts and merch.</p>
+      </div>
+      <div class="feature">
+        <img src="roll up banner.png" alt="Roll-up banner" />
+        <h3>Banners</h3>
+        <p>Feather flags and roll‑ups for events and promotions.</p>
+      </div>
+      <div class="feature">
+        <img src="tote bug.png" alt="Tote bag" />
+        <h3>Tote Bags</h3>
+        <p>Durable totes customized to your style.</p>
+      </div>
+      <div class="feature">
+        <img src="plate.png" alt="Plate" />
+        <h3>Plates</h3>
+        <p>Personalized plates for decor or gifting.</p>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <h2>Recent work</h2>
+      <div class="grid">
+        <img src="H1.png" alt="Hoodie H1" />
+        <img src="H2.png" alt="Hoodie H2" />
+        <img src="T1.png" alt="T-Shirt T1" />
+        <img src="BN4.png" alt="Banner BN4" />
+        <img src="P2.png" alt="Plate P2" />
+        <img src="M2.png" alt="Mug M2" />
+      </div>
+      <div class="center">
+        <a class="btn" href="designs.html">See more designs</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Cedris. All rights reserved.</p>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Hero slideshow using 16:9 images with full names
+    const slides = [
+      't shirt.png',
+      'hood.png',
+      'mug.png',
+      'plate.png',
+      'tote bug.png',
+      'feather flag banner.png',
+      'roll up banner.png'
+    ];
+    // Preload images
+    slides.forEach(src => { const img = new Image(); img.src = src; });
+
+    const a = document.getElementById('slideA');
+    const b = document.getElementById('slideB');
+    let idx = 0;
+    let showA = true;
+
+    function setBg(el, src){ el.style.backgroundImage = `url('${src}')`; }
+
+    function nextSlide(){
+      idx = (idx + 1) % slides.length;
+      const nextSrc = slides[idx];
+      if (showA){
+        setBg(b, nextSrc);
+        b.classList.remove('hidden');
+        a.classList.add('hidden');
+      } else {
+        setBg(a, nextSrc);
+        a.classList.remove('hidden');
+        b.classList.add('hidden');
+      }
+      showA = !showA;
+    }
+
+    // Start after 3s, then every 5s
+    setTimeout(() => {
+      nextSlide();
+      setInterval(nextSlide, 5000);
+    }, 3000);
+
+    // Morphing headline
+    const morphPhrases = [
+      'Choose a design',
+      'Make it yours',
+      'We print it for you'
+    ];
+    const morphEl = document.getElementById('morphText');
+    let morphIdx = 0;
+    function nextPhrase(){
+      morphEl.classList.add('hide');
+      setTimeout(() => {
+        morphIdx = (morphIdx + 1) % morphPhrases.length;
+        morphEl.textContent = morphPhrases[morphIdx];
+        morphEl.classList.remove('hide');
+      }, 400);
+    }
+    setInterval(nextPhrase, 2500);
+  </script>
+</body>
+</html>
+

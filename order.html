@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cedris — Order</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add('theme-init');}catch(e){document.documentElement.setAttribute('data-theme','dark');document.documentElement.classList.add('theme-init');}})();</script>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .order-grid{display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:14px}
+    .summary{background:var(--card); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.06)}
+    .summary h3{margin:0 0 8px 0}
+    .summary h4{margin:16px 0 8px 0; color:var(--text)}
+    .summary h5{margin:8px 0 4px 0; color:var(--accent); font-size:14px}
+    .price{font-size:24px; font-weight:800; color:var(--accent)}
+    .pricing-option{margin:12px 0; padding:12px; background:rgba(255,255,255,0.02); border-radius:8px; border-left:3px solid var(--accent)}
+    .price-breakdown{font-size:14px; line-height:1.4}
+    .inline{display:flex; align-items:center; gap:10px}
+    .muted-small{color:var(--muted); font-size:12px}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="Cedris logo" class="logo" />
+      <span>Cedris</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="designs.html">Our Designs</a>
+      <a href="design-yourself.html" class="active">Design For Yourself</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <button class="theme-toggle" id="themeToggle">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="section">
+      <h1>Confirm your order</h1>
+      <p class="muted">Review what you chose, fill in your details, and complete payment.</p>
+    </section>
+
+    <section class="order-grid">
+      <div class="summary">
+        <h3>What you chose</h3>
+        <p id="choiceText">Loading…</p>
+        <div class="inline">
+          <span class="muted">Product color tint:</span>
+          <span id="tintSwatch" style="display:inline-block; width:18px; height:18px; border-radius:4px; border:1px solid rgba(255,255,255,.15);"></span>
+        </div>
+        
+        <div id="pricingBreakdown">
+          <div class="pricing-option" id="bringOwnPricing">
+            <h5>You bring your own product</h5>
+            <p class="price">Total payment: RWF <span id="printingFee">0</span></p>
+            <p class="muted-small">Pay now for printing service only</p>
+          </div>
+          
+          <div class="pricing-option" id="weSupplyPricing" style="display:none">
+            <h5>We supply the product for you</h5>
+            <p class="price-breakdown" id="productPriceBreakdown">
+              <span>Printing fee: RWF <span id="printingFee3">0</span></span><br>
+              <span>Estimated product cost: RWF <span id="productCostRange">0</span></span><br>
+              <strong>Total estimated payment: RWF <span id="totalEstimated">0</span></strong>
+            </p>
+            <p class="price-breakdown" id="wholeProductPrice" style="display:none">
+              <strong>Total payment: RWF <span id="wholeProductAmount">0</span></strong>
+            </p>
+            <p class="muted-small" id="supplyMessage">You pay printing fee now. We'll contact you for product specifications, then you pay the remaining product cost after we source it.</p>
+            <p class="muted-small" id="wholeProductMessage" style="display:none">Complete service including material and printing</p>
+          </div>
+          
+          <div class="pricing-option" id="weProvidePricing" style="display:none">
+            <h5>We provide complete service for you</h5>
+            <p class="price">Total payment: RWF <span id="providedProductAmount">0</span></p>
+            <p class="muted-small">Comprehensive service including premium materials, design, and professional installation guidance</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="form" id="orderForm">
+        <div>
+          <label>Will you bring the product or should we supply it?</label>
+          <select class="input" name="supply" id="supply" required>
+            <option value="bring">I will bring the product</option>
+            <option value="supply">Buy it for me and print</option>
+          </select>
+        </div>
+        <div>
+          <label>Your name</label>
+          <input class="input" type="text" name="name" id="name" placeholder="Your full name" required />
+        </div>
+        <div>
+          <label>Phone number</label>
+          <input class="input" type="tel" name="phone" id="phone" placeholder="07XXXXXXXX" required />
+        </div>
+        <div>
+          <label>Email</label>
+          <input class="input" type="email" name="email" id="email" placeholder="you@example.com" required />
+        </div>
+        <div>
+          <label>Delivery?</label>
+          <select class="input" name="delivery" id="delivery" required>
+            <option value="no">No, I will pick up</option>
+            <option value="yes">Yes, deliver to me</option>
+          </select>
+        </div>
+        <div id="deliveryAddressWrap" style="display:none">
+          <label>Delivery address</label>
+          <input class="input" type="text" name="address" id="address" placeholder="Street, area, city" />
+        </div>
+        <button class="btn primary" type="submit">Confirm and get payment code</button>
+        <p id="orderStatus" class="muted"></p>
+      </form>
+    </section>
+
+    <section class="card section" id="paymentSection" style="display:none">
+      <h2 class="inline">Pay with MTN MoMo <img src="mtn.webp" alt="MTN MoMo" style="height:28px; width:auto; border-radius:6px; margin-left:8px" /></h2>
+      <p>Use this MoMo Pay merchant code to pay: <strong>611960</strong></p>
+      <p>After you pay, we’ll record the transaction ID below.</p>
+      <form class="form" id="paymentForm">
+        <div>
+          <label>Transaction ID from MTN</label>
+          <input class="input" type="text" id="txnId" placeholder="e.g., 1234567890" required />
+        </div>
+        <button class="btn primary" type="submit">Submit payment</button>
+        <p id="paymentStatus" class="muted"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Cedris. All rights reserved.</p>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Load draft from localStorage
+    let draft = null;
+    try { draft = JSON.parse(localStorage.getItem('orderDraft')||'null'); } catch {}
+    const choiceText = document.getElementById('choiceText');
+    const tintSwatch = document.getElementById('tintSwatch');
+    const amountEl = document.getElementById('amount');
+    function hydrateSummary(){
+      if (!draft){
+        choiceText.textContent = 'No previous design detected. Please design first.';
+        return;
+      }
+      const parts = [draft.productLabel];
+      if (draft.hasText) parts.push('with text');
+      if (draft.hasArtwork) parts.push('with artwork');
+      choiceText.textContent = parts.join(' ');
+      tintSwatch.style.background = draft.tintHex || '#22c55e';
+      
+      // Calculate pricing for both options
+      const productLabel = draft.productLabel || 'T-shirt';
+      const printingFee = draft.amount || 0;
+      
+      // Handle special products (Banner and Feather Flag) - Cedris always provides these
+      const isSpecialProduct = productLabel.includes('Banner') || productLabel.includes('Feather Flag');
+      
+      if (isSpecialProduct) {
+        // Update dropdown for special products
+        updateDropdownForSpecialProducts();
+        // Set pricing for provided products
+        document.getElementById('providedProductAmount').textContent = printingFee;
+      } else {
+        // Update dropdown for regular products
+        updateDropdownForRegularProducts();
+        // Set pricing for bring own product
+        document.getElementById('printingFee').textContent = printingFee;
+        
+        // Product costs when we supply them (good quality)
+        const productCosts = {
+          'T-Shirt': 5000,
+          'Hoodie': 7000,
+          'Mug': 3000,
+          'Plate': 2500,
+          'Tote Bag': 8000
+        };
+        
+        const productCost = productCosts[productLabel] || 5000;
+        document.getElementById('printingFee3').textContent = printingFee;
+        
+        const minCost = Math.round(productCost * 0.8);
+        const maxCost = Math.round(productCost * 1.2);
+        document.getElementById('productCostRange').textContent = `${minCost} - ${maxCost}`;
+        document.getElementById('totalEstimated').textContent = `${printingFee + minCost} - ${printingFee + maxCost}`;
+      }
+      
+      updatePricingDisplay();
+    }
+    
+    function updateDropdownForSpecialProducts() {
+      const supplySelect = document.getElementById('supply');
+      const label = supplySelect.previousElementSibling;
+      
+      // Update label
+      label.textContent = 'Service arrangement:';
+      
+      // Update dropdown options
+      supplySelect.innerHTML = '<option value="provide">We provide comprehensive service for you</option>';
+      supplySelect.value = 'provide';
+    }
+    
+    function updateDropdownForRegularProducts() {
+      const supplySelect = document.getElementById('supply');
+      const label = supplySelect.previousElementSibling;
+      
+      // Update label
+      label.textContent = 'Will you bring the product or should we supply it?';
+      
+      // Update dropdown options
+      supplySelect.innerHTML = '<option value="bring">I will bring the product</option><option value="supply">Buy it for me and print</option>';
+      supplySelect.value = 'bring';
+    }
+    
+    function updatePricingDisplay() {
+      const supplyChoice = document.getElementById('supply').value;
+      const bringOwnCard = document.getElementById('bringOwnPricing');
+      const weSupplyCard = document.getElementById('weSupplyPricing');
+      const weProvideCard = document.getElementById('weProvidePricing');
+      const productLabel = draft ? draft.productLabel : '';
+      const isSpecialProduct = productLabel.includes('Banner') || productLabel.includes('Feather Flag');
+      
+      // Hide all cards first
+      bringOwnCard.style.display = 'none';
+      weSupplyCard.style.display = 'none';
+      weProvideCard.style.display = 'none';
+      
+      if (isSpecialProduct) {
+        // For banners and feather flags, only show "we provide" card
+        weProvideCard.style.display = 'block';
+      } else {
+        // For regular products, show appropriate cards based on selection
+        if (supplyChoice === 'supply') {
+          weSupplyCard.style.display = 'block';
+          // Show breakdown pricing for regular products
+          document.getElementById('productPriceBreakdown').style.display = 'block';
+          document.getElementById('wholeProductPrice').style.display = 'none';
+          document.getElementById('supplyMessage').style.display = 'block';
+          document.getElementById('wholeProductMessage').style.display = 'none';
+        } else {
+          bringOwnCard.style.display = 'block';
+        }
+      }
+    }
+    hydrateSummary();
+
+    // Supply choice toggle for pricing display
+    const supplySelect = document.getElementById('supply');
+    supplySelect.addEventListener('change', updatePricingDisplay);
+    
+    // Delivery address toggle
+    const deliverySel = document.getElementById('delivery');
+    const addressWrap = document.getElementById('deliveryAddressWrap');
+    deliverySel.addEventListener('change', () => {
+      const want = deliverySel.value === 'yes';
+      addressWrap.style.display = want ? 'block' : 'none';
+      document.getElementById('address').required = want;
+    });
+
+    // Order form submit -> create order via API and show MoMo code
+    const orderForm = document.getElementById('orderForm');
+    const orderStatus = document.getElementById('orderStatus');
+    const paymentSection = document.getElementById('paymentSection');
+
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitButton = e.target.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+
+      try {
+        submitButton.textContent = 'Creating order...';
+        submitButton.disabled = true;
+
+        // Basic validations
+        const nameVal = document.getElementById('name').value.trim();
+        const phoneVal = document.getElementById('phone').value.trim();
+        const emailVal = document.getElementById('email').value.trim();
+        const supplyVal = document.getElementById('supply').value;
+        const wantsDelivery = document.getElementById('delivery').value === 'yes';
+        const addressVal = document.getElementById('address').value.trim();
+
+        if (!draft) {
+          throw new Error('Order details are missing. Please start from a product or design your own.');
+        }
+
+        if (wantsDelivery && !addressVal) {
+          throw new Error('Please enter a delivery address or choose pickup.');
+        }
+
+        // Prepare payload to match backend /api/orders contract
+        const customSpecs = {
+          product_name: draft?.productName || draft?.productLabel || 'Custom Design',
+          category: draft?.category || 'Other',
+          supply_method: supplyVal, // 'bring' | 'supply' | 'provide'
+          design_specifications: {
+            hasText: !!draft?.hasText,
+            hasArtwork: !!draft?.hasArtwork,
+            tintColor: draft?.tintHex || '#22c55e',
+            imageUrl: draft?.image || null,
+            source: draft?.source || 'custom'
+          },
+          base_price: (draft?.price ?? draft?.amount ?? 0),
+          customer: {
+            name: nameVal,
+            phone: phoneVal,
+            email: emailVal
+          }
+        };
+
+        const orderData = {
+          items: [
+            {
+              product_id: draft.productId || null,
+              quantity: draft?.quantity ? Math.max(1, parseInt(draft.quantity, 10) || 1) : 1,
+              custom_specifications: customSpecs
+            }
+          ],
+          delivery_address: wantsDelivery ? addressVal : 'PICKUP - customer will collect',
+          phone: phoneVal,
+          notes: `Customer: ${nameVal} (${emailVal}). Supply: ${supplyVal}. Product: ${customSpecs.product_name}.`
+        };
+
+        // Create order locally (no backend needed)
+        const orderId = `CEDRIS-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+        
+        // Store order info locally
+        const orderInfo = {
+          orderId: orderId,
+          orderNumber: orderId,
+          ...customSpecs,
+          momoCode: '611960',
+          supply_method: supplyVal,
+          customer_phone: phoneVal,
+          product_name: customSpecs.product_name,
+          customer_name: nameVal,
+          customer_email: emailVal,
+          delivery_address: wantsDelivery ? addressVal : 'PICKUP'
+        };
+
+        localStorage.setItem('orderInfo', JSON.stringify(orderInfo));
+
+        orderStatus.innerHTML = `
+          <strong>Order #${orderInfo.orderNumber || 'N/A'} created successfully!</strong><br>
+          Use the MTN MoMo Pay code below to complete payment.
+        `;
+        orderStatus.style.color = 'var(--accent)';
+
+        paymentSection.style.display = 'block';
+        paymentSection.scrollIntoView({behavior:'smooth'});
+
+      } catch (error) {
+        console.error('Order creation failed:', error);
+        orderStatus.innerHTML = `
+          <strong>Unable to create order:</strong> ${error.message || 'Something went wrong'}<br>
+          <button class="btn" onclick="location.reload()" style="margin-top: 8px;">Try Again</button>
+        `;
+        orderStatus.style.color = '#ff6b6b';
+      } finally {
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+      }
+    });
+
+    // Payment submit -> update order with payment details
+    const paymentForm = document.getElementById('paymentForm');
+    const paymentStatus = document.getElementById('paymentStatus');
+    
+    paymentForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const txnId = document.getElementById('txnId').value.trim();
+      if (!txnId) {
+        paymentStatus.textContent = 'Please enter the transaction ID.';
+        paymentStatus.style.color = '#ff6b6b';
+        return;
+      }
+      
+      const submitButton = e.target.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      
+      try {
+        submitButton.textContent = 'Processing payment...';
+        submitButton.disabled = true;
+        paymentStatus.textContent = 'Verifying payment details...';
+        paymentStatus.style.color = 'var(--muted)';
+        
+        // Get stored order info
+        let orderInfo = null;
+        try {
+          orderInfo = JSON.parse(localStorage.getItem('orderInfo') || 'null');
+        } catch (e) {
+          throw new Error('Order information not found. Please try creating the order again.');
+        }
+        
+        if (!orderInfo?.orderId) {
+          throw new Error('Order ID not found. Please try creating the order again.');
+        }
+        
+        // Record payment locally (no backend needed)
+        orderInfo.txnId = txnId;
+        orderInfo.paymentStatus = 'submitted';
+        orderInfo.paidAt = new Date().toISOString();
+        
+        localStorage.setItem('orderInfo', JSON.stringify(orderInfo));
+        
+        // Clear the draft since order is complete
+        localStorage.removeItem('orderDraft');
+        
+        const supplyChoice = orderInfo.supply_method;
+        let successMessage = '';
+        
+        if (supplyChoice === 'supply') {
+          successMessage = `
+            <strong>Payment submitted successfully!</strong><br><br>
+            <strong>Order #${orderInfo.orderNumber}</strong> is now being processed.<br>
+            Our team will contact you within 24 hours at <strong>${orderInfo.customer_phone}</strong> 
+            to discuss product specifications, quality preferences, and finalize the remaining 
+            payment for product procurement.<br><br>
+            Thank you for choosing Cedris!
+          `;
+        } else if (supplyChoice === 'provide') {
+          successMessage = `
+            <strong>Payment received!</strong><br><br>
+            <strong>Order #${orderInfo.orderNumber}</strong> is confirmed.<br>
+            We'll begin work on your ${orderInfo.product_name} and contact you at 
+            <strong>${orderInfo.customer_phone}</strong> with updates.<br><br>
+            Thank you for choosing Cedris!
+          `;
+        } else {
+          successMessage = `
+            <strong>Payment received!</strong><br><br>
+            <strong>Order #${orderInfo.orderNumber}</strong> is confirmed.<br>
+            Please bring your product to our location. We will contact you at 
+            <strong>${orderInfo.customer_phone}</strong> to schedule the printing process.<br><br>
+            Thank you for choosing Cedris!
+          `;
+        }
+        
+        paymentStatus.innerHTML = successMessage;
+        paymentStatus.style.color = 'var(--accent)';
+        
+        // Hide the payment form
+        paymentForm.style.display = 'none';
+        
+      } catch (error) {
+        console.error('Payment processing failed:', error);
+        paymentStatus.innerHTML = `
+          <strong>Payment processing failed:</strong> ${error.message || 'Something went wrong'}<br>
+          Please try again or contact support.
+        `;
+        paymentStatus.style.color = '#ff6b6b';
+      } finally {
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
+

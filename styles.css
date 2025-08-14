@@ -1,0 +1,178 @@
+/* Cedris site styles */
+:root{
+  --bg:#0b0c10;
+  --card:#111319;
+  --text:#e5e7eb;
+  --muted:#9aa0aa;
+  --brand:#22c55e;
+  --brand-700:#15803d;
+  --accent:#38bdf8;
+  --khaki: khaki;
+  --border: rgba(255,255,255,0.06);
+}
+
+/* Light theme with khaki/beige colors - Apply to html and body */
+html[data-theme="light"],
+[data-theme="light"] {
+  --bg: #f5f5dc; /* Warm beige background */
+  --card: #f0f8e8; /* Light khaki card background */
+  --text: #2d3748; /* Dark text for contrast */
+  --muted: #718096; /* Muted gray for secondary text */
+  --brand: #22c55e; /* Keep brand green */
+  --brand-700: #15803d;
+  --accent: #3182ce; /* Slightly deeper blue for light mode */
+  --khaki: #c4a484; /* Warm khaki accent */
+  --border: rgba(45, 55, 72, 0.1); /* Subtle dark border for light mode */
+}
+*{box-sizing:border-box}
+/* Prevent theme flash/animations during initial paint */
+.theme-init, .theme-init * { transition: none !important; }
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--text);
+  line-height:1.6;
+}
+img{max-width:100%;height:auto;display:block}
+
+/* Header */
+.site-header{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 12px 20px; background: rgba(11,12,16,0.8); backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--border);
+}
+
+[data-theme="light"] .site-header {
+  background: rgba(245,245,220,0.9);
+}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:700; font-size:18px}
+.logo{width:36px; height:auto}
+.site-nav{display:flex; gap:14px}
+.site-nav a{color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:8px}
+.site-nav a:hover{color:var(--text); background:var(--border)}
+.site-nav a.active{color:#111; background:var(--accent); font-weight:600}
+
+/* Theme toggle button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  color: var(--text);
+  margin-left: 16px;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: #111;
+  transform: translateY(-1px);
+}
+
+main{padding: 20px}
+
+/* Hero */
+.hero{position:relative; min-height:64vh; background-size:cover; background-position:center; border-radius:14px; overflow:hidden}
+ .hero-overlay{position:absolute; inset:0; background: linear-gradient(90deg, rgba(11,12,16,0.85), rgba(11,12,16,0.35)); padding: 40px; display:flex; flex-direction:column; gap:16px; justify-content:center; z-index:1}
+.hero h1{font-size: clamp(28px, 5vw, 56px); margin:0}
+.hero p{max-width:720px; color:var(--muted); margin:0}
+.cta-group{display:flex; gap:12px; margin-top:8px}
+.btn{display:inline-block; padding:10px 16px; border:1px solid rgba(255,255,255,0.18); color:var(--text); text-decoration:none; border-radius:10px; background:rgba(255,255,255,0.04)}
+.btn:hover{background:rgba(255,255,255,0.1)}
+.btn.primary{background:var(--brand); color:#07110a; border-color:transparent; font-weight:700}
+.btn.primary:hover{background:var(--brand-700); color:#eafff2}
+.center{text-align:center; margin-top:12px}
+
+/* Features */
+.features{display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin: 28px 0}
+.feature{background:var(--card); padding:14px; border-radius:12px; border:1px solid var(--border)}
+.feature h3{margin:10px 0 6px 0}
+.feature p{margin:0; color:var(--muted)}
+
+/* Gallery */
+.gallery{margin: 28px 0}
+.gallery h2{margin:0 0 12px 0}
+.grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:10px}
+.design{position:relative; border-radius:10px; overflow:hidden}
+.design img{width:100%; height:auto; display:block; border-radius:10px; border:1px solid var(--border); background:var(--card); aspect-ratio: 1/1; object-fit:cover; transition: transform .18s ease, box-shadow .18s ease}
+.design:hover img{transform: scale(1.02); box-shadow: 0 0 0 2px var(--accent) inset}
+.design .overlay{position:absolute; inset:0; display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center; background: rgba(0,0,0,0.45); opacity:0; transition: opacity .18s ease}
+.design:hover .overlay{opacity:1}
+.btn.action{background: var(--accent); color:#111; border-color: transparent; font-weight:700}
+.btn.action.customize{background: var(--brand)}
+
+/* Footer */
+.site-footer{padding:20px; color:var(--muted); text-align:center; border-top:1px solid var(--border)}
+
+/* Social links */
+.socials{display:flex; flex-wrap:wrap; gap:12px; align-items:center; color: var(--khaki)}
+.socials .social{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color: var(--khaki)}
+.socials .social:hover{filter: brightness(1.15)}
+.socials .social svg{display:block}
+
+/* Content wrappers */
+.page{max-width:1100px; margin:0 auto}
+.card{background:var(--card); padding:16px; border-radius:12px; border:1px solid var(--border)}
+.section{margin: 20px 0}
+
+/* Forms */
+.form{display:grid; gap:12px; max-width:620px}
+.input, textarea, select{
+  width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border);
+  background:var(--card); color:var(--text);
+}
+textarea{min-height:120px; resize:vertical}
+
+/* Mockup editor */
+.mockup-wrap{display:grid; gap:12px}
+.mockup-stage{
+  position:relative; width:100%; max-width:820px; margin:0 auto;
+  background:#0f1117; border:1px solid var(--border); border-radius:12px;
+  aspect-ratio: 16 / 9; overflow:hidden;
+}
+.mockup-stage img.layer{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; pointer-events:none; z-index:1}
+.mockup-stage .tint-layer{position:absolute; inset:0; background:#ffffff; opacity:.9; mix-blend-mode:multiply; pointer-events:none; z-index:2}
+.mockup-stage img.art-layer{position:absolute; left:50%; top:50%; transform: translate(-50%, -50%) scale(0.6); width:auto; height:auto; max-width:70%; max-height:70%; pointer-events:auto; cursor:move; display:none; z-index:3}
+.mockup-stage .text-layer{position:absolute; left:50%; top:50%; transform: translate(-50%, -50%) scale(1); color:#ffffff; background:transparent; padding:10px 14px; border-radius:12px; font-weight:800; font-size:36px; line-height:1.2; text-align:center; max-width:80%; cursor:move; pointer-events:auto; user-select:none; white-space:pre-wrap; z-index:4; text-shadow: 0 2px 2px rgba(0,0,0,0.8), 0 4px 10px rgba(0,0,0,0.45), 0 0 1px rgba(0,0,0,0.7); -webkit-text-stroke: 1px rgba(0,0,0,0.55);}
+.editor-grid{display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:12px}
+.editor-grid .field{display:grid; gap:6px}
+
+/* Simple tabs for editor controls */
+.tabs{display:grid; gap:10px}
+.tab-buttons{display:flex; gap:8px; flex-wrap:wrap}
+.tab-button{padding:8px 12px; border-radius:8px; border:1px solid var(--border); background:var(--card); color:var(--text); cursor:pointer; transition: all 0.2s ease;}
+.tab-button:hover{background:var(--border); border-color:var(--muted); transform:translateY(-1px)}
+.tab-button.active{background:var(--accent); color:#111; border-color:transparent; font-weight:700}
+
+/* Innovation: Enhanced button styling */
+.btn{padding:8px 12px; border-radius:8px; border:1px solid var(--border); background:var(--card); color:var(--text); cursor:pointer; transition: all 0.2s ease; font-size:13px}
+.btn:hover{background:var(--accent); color:#111; border-color:transparent; transform:translateY(-1px); box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.btn.active{background:var(--brand); color:#111; border-color:transparent; box-shadow:0 2px 8px rgba(34,197,94,0.3)}
+.btn.primary{background:var(--brand); color:#111; border-color:transparent; font-weight:600}
+.btn.primary:hover{background:var(--brand-700); box-shadow:0 4px 12px rgba(34,197,94,0.4)}
+.tab-panel{display:none}
+.tab-panel.active{display:grid; gap:12px}
+
+/* Responsive tweaks */
+@media (max-width: 640px){
+  .site-nav{gap:6px}
+  .site-nav a{padding:8px}
+  .cta-group{flex-direction:column; align-items:flex-start}
+}
+
+/* Hero slideshow layers */
+.hero-bg{position:absolute; inset:0; background-size:cover; background-position:center; transition: opacity 1s ease; opacity:1}
+.hero-bg.hidden{opacity:0}
+
+/* Morphing headline */
+.morph-text{display:inline-block; transition: opacity .4s ease}
+.morph-text.hide{opacity:0}
+

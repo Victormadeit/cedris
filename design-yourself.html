@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cedris — Design For Yourself</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add('theme-init');}catch(e){document.documentElement.setAttribute('data-theme','dark');document.documentElement.classList.add('theme-init');}})();</script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="Cedris logo" class="logo" />
+      <span>Cedris</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="designs.html">Our Designs</a>
+      <a href="design-yourself.html" class="active">Design For Yourself</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-text">Dark</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="section">
+      <h1>Design For Yourself</h1>
+      <p class="muted">Choose a blank product, describe your idea, and upload any references. We'll design it and print it for you.</p>
+    </section>
+
+    <section class="card section">
+      <div class="mockup-wrap">
+        <div class="editor-grid">
+          <div class="field">
+            <label>Choose a blank product</label>
+            <select class="input" id="blankPicker">
+              <option value="a white t-shirt.png">T‑Shirt</option>
+              <option value="a white hoodie.png">Hoodie</option>
+              <option value="a white mug.png">Mug</option>
+              <option value="a white plate.png">Plate</option>
+              <option value="a white feather flag.png">Feather Flag</option>
+              <option value="a white banner.png">Banner</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>History</label>
+            <div style="display:flex; gap:8px; flex-wrap:wrap">
+              <button class="btn" type="button" id="undoBtn">Undo</button>
+              <button class="btn" type="button" id="redoBtn">Redo</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Product color</label>
+            <input class="input" type="color" id="tintColor" value="#ffffff" />
+          </div>
+          <div class="field">
+            <label>Color strength</label>
+            <input class="input" type="range" id="tintOpacity" min="0" max="100" value="85" />
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab-buttons">
+            <button class="tab-button active" type="button" data-tab="artTab">Artwork</button>
+            <button class="tab-button" type="button" data-tab="textTab">Text</button>
+          </div>
+          <div class="tab-panel active" id="artTab">
+            <div class="editor-grid">
+              <!-- Artwork Type Selection -->
+              <div class="field" id="artworkTypeSelection">
+                <label>What kind of artwork do you want to add?</label>
+                <div style="display:flex; gap:8px; flex-wrap:wrap">
+                  <button class="btn" type="button" id="choosePhoto">📷 Photo</button>
+                  <button class="btn" type="button" id="chooseLogo">🏷️ Logo</button>
+                  <button class="btn" type="button" id="chooseOtherArt">🎨 Other Art</button>
+                </div>
+              </div>
+              
+              <!-- Photo Upload Section -->
+              <div class="field" id="photoSection" style="display:none">
+                <label>Upload a photo</label>
+                <input class="input" type="file" id="photoUpload" accept="image/*" />
+                <p class="muted" style="font-size:12px">Best for: personal photos, scenery, portraits</p>
+              </div>
+              
+              <!-- Logo Upload Section -->
+              <div class="field" id="logoSection" style="display:none">
+                <label>Upload your logo</label>
+                <input class="input" type="file" id="logoUpload" accept="image/*" />
+                <p class="muted" style="font-size:12px">Best for: company logos, brand marks (PNG with transparency recommended)</p>
+              </div>
+              
+              <!-- Other Art Upload Section -->
+              <div class="field" id="otherArtSection" style="display:none">
+                <label>Upload your artwork</label>
+                <input class="input" type="file" id="otherArtUpload" accept="image/*" />
+                <p class="muted" style="font-size:12px">Best for: illustrations, designs, graphics, patterns</p>
+              </div>
+              
+              <!-- Artwork Controls (shown after upload) -->
+              <div id="artworkControls" style="display:none">
+                <div class="field">
+                  <label>Artwork size</label>
+                  <input class="input" type="range" id="artScale" min="20" max="160" value="100" />
+                </div>
+                <div class="field">
+                  <label>Artwork position</label>
+                  <div style="display:flex; gap:8px; flex-wrap:wrap">
+                    <button class="btn" type="button" id="artReset">Center artwork</button>
+                    <button class="btn" type="button" id="artRemove">Remove artwork</button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Clear All Button -->
+              <div class="field">
+                <button class="btn secondary" type="button" id="clearAll">🗑️ Clear all content</button>
+              </div>
+            </div>
+          </div>
+          <div class="tab-panel" id="textTab">
+            <div class="editor-grid">
+              <div class="field">
+                <label>Quick text suggestions</label>
+                <select class="input" id="textSuggestionSelect">
+                  <option value="">Choose a suggestion…</option>
+                  <optgroup label="Cool & Trendy">
+                    <option>Cool & Trendy</option>
+                    <option>NIWOWE</option>
+                    <option>Good Vibes Only</option>
+                    <option>Keep It 250</option>
+                    <option>No Stress Zone</option>
+                    <option>Hustle Mode On</option>
+                    <option>Weekend Mood</option>
+                    <option>Blessed & Busy</option>
+                    <option>Born to Chill</option>
+                    <option>Stay Wild</option>
+                    <option>Dream Big</option>
+                  </optgroup>
+                  <optgroup label="Love & Couples">
+                    <option>Love & Couples</option>
+                    <option>Forever Yours</option>
+                    <option>My Person ❤️</option>
+                    <option>You & Me</option>
+                    <option>Love Wins</option>
+                    <option>Better Together</option>
+                    <option>Soulmate Vibes</option>
+                    <option>All of Me Loves All of You</option>
+                    <option>XO XO</option>
+                  </optgroup>
+                  <optgroup label="Birthday & Celebration">
+                    <option>Birthday Queen</option>
+                    <option>Birthday King</option>
+                    <option>Chapter [Age] Begins</option>
+                    <option>Level Up [Age]</option>
+                    <option>Party Mode On</option>
+                    <option>Vintage [Year]</option>
+                  </optgroup>
+                  <optgroup label="RIP / Memorial">
+                    <option>RIP [Name] – Forever in Our Hearts</option>
+                    <option>Gone but Never Forgotten</option>
+                    <option>In Loving Memory of [Name]</option>
+                    <option>Forever Missed, Forever Loved</option>
+                    <option>Rest in Paradise</option>
+                    <option>Your Wings Were Ready, My Heart Was Not</option>
+                  </optgroup>
+                </select>
+                <p class="muted" style="font-size:12px;margin:6px 0 0">Tip: Replace fields like [Age], [Year], or [Name] after inserting.</p>
+              </div>
+              <div class="field">
+                <label>Add your text</label>
+                <input class="input" type="text" id="textContent" placeholder="Enter your text here..." />
+                <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:6px">
+                  <button class="btn" type="button" id="textReset">Center text</button>
+                  <button class="btn" type="button" id="textFullReset">Reset text</button>
+                  <button class="btn" type="button" id="textRemove">Remove text</button>
+                </div>
+              </div>
+              <div class="field">
+                <label>Text style presets</label>
+                <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px">
+                  <button class="btn" type="button" data-style="clean">✨ Clean</button>
+                  <button class="btn" type="button" data-style="bold">💪 Bold</button>
+                  <button class="btn" type="button" data-style="elegant">🌟 Elegant</button>
+                  <button class="btn" type="button" data-style="impact">🔥 Impact</button>
+                </div>
+              </div>
+              <div class="field">
+                <label>Font & Size</label>
+                <div style="display:flex; gap:8px; align-items:center">
+                  <select class="input" id="textFont" style="flex:1">
+                    <option value="system-ui, -apple-system, 'Segoe UI', Roboto, Arial">Default</option>
+                    <option value="Impact, sans-serif">Impact</option>
+                    <option value="'Times New Roman', Times, serif">Times</option>
+                    <option value="'Brush Script MT', cursive">Script</option>
+                    <option value="Georgia, serif">Serif</option>
+                  </select>
+                  <input class="input" type="range" id="textSize" min="16" max="72" value="36" style="flex:1" />
+                </div>
+              </div>
+              <div class="field">
+                <label>Colors</label>
+                <div style="display:flex; gap:8px; align-items:center">
+                  <input class="input" type="color" id="textColor" value="#ffffff" style="width:50px; height:36px; padding:2px" />
+                  <span style="font-size:12px; color:var(--muted)">on</span>
+                  <input class="input" type="color" id="textBg" value="#000000" style="width:50px; height:36px; padding:2px" />
+                  <input class="input" type="range" id="textBgOpacity" min="0" max="100" value="80" style="flex:1" title="Background strength" />
+                </div>
+              </div>
+              <div class="field">
+                <label>Advanced options</label>
+                <div style="display:flex; gap:8px; flex-wrap:wrap">
+                  <button class="btn" type="button" id="toggleAdvanced">⚙️ More options</button>
+                  <label style="display:flex; align-items:center; gap:4px; font-size:13px"><input type="checkbox" id="textBold" /> Bold</label>
+                  <label style="display:flex; align-items:center; gap:4px; font-size:13px"><input type="checkbox" id="textItalic" /> Italic</label>
+                </div>
+              </div>
+              <div class="field" id="advancedControls" style="display:none">
+                <label>Fine-tune appearance</label>
+                <div style="display:grid; gap:8px">
+                  <div style="display:flex; gap:8px; align-items:center">
+                    <label style="font-size:12px; color:var(--muted); width:60px">Outline:</label>
+                    <input class="input" type="range" id="outlineWidth" min="0" max="3" value="1" step="0.5" style="flex:1" />
+                    <input class="input" type="color" id="outlineColor" value="#000000" style="width:30px; height:24px; padding:1px" />
+                  </div>
+                  <div style="display:flex; gap:8px; align-items:center">
+                    <label style="font-size:12px; color:var(--muted); width:60px">Style:</label>
+                    <select class="input" id="backdropStyle" style="flex:1">
+                      <option value="pill" selected>Rounded</option>
+                      <option value="badge">Sharp</option>
+                      <option value="shadow">Glow</option>
+                      <option value="none">None</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mockup-stage" id="stage">
+          <img class="layer base-layer" id="baseLayer" src="a white t-shirt.png" alt="Base product" />
+          <div class="tint-layer" id="tintLayer"></div>
+          <img class="art-layer" id="artLayer" alt="Artwork" style="display:none" />
+          <div class="text-layer" id="textLayer" style="display:none"></div>
+        </div>
+        <p class="muted">Tip: Pick a product color, then upload your logo/design. Drag the artwork to position it; use the size slider to scale.</p>
+      </div>
+    </section>
+    
+    <div class="center">
+      <button class="btn primary" id="orderBtn" type="button">Order this design</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Cedris. All rights reserved.</p>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Mockup editor wiring
+    const picker = document.getElementById('blankPicker');
+    const base = document.getElementById('baseLayer');
+    const tint = document.getElementById('tintLayer');
+    const color = document.getElementById('tintColor');
+    const opacity = document.getElementById('tintOpacity');
+    const art = document.getElementById('artLayer');
+    const artScale = document.getElementById('artScale');
+    const artReset = document.getElementById('artReset');
+    const artRemove = document.getElementById('artRemove');
+    const stage = document.getElementById('stage');
+    const undoBtn = document.getElementById('undoBtn');
+    const redoBtn = document.getElementById('redoBtn');
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    
+    // Advanced artwork workflow elements
+    const choosePhoto = document.getElementById('choosePhoto');
+    const chooseLogo = document.getElementById('chooseLogo');
+    const chooseOtherArt = document.getElementById('chooseOtherArt');
+    const photoSection = document.getElementById('photoSection');
+    const logoSection = document.getElementById('logoSection');
+    const otherArtSection = document.getElementById('otherArtSection');
+    const photoUpload = document.getElementById('photoUpload');
+    const logoUpload = document.getElementById('logoUpload');
+    const otherArtUpload = document.getElementById('otherArtUpload');
+    const artworkControls = document.getElementById('artworkControls');
+    const clearAll = document.getElementById('clearAll');
+    
+    // Text elements
+    const textContent = document.getElementById('textContent');
+    const textLayer = document.getElementById('textLayer');
+    const textColor = document.getElementById('textColor');
+    const textBg = document.getElementById('textBg');
+    const textBgOpacity = document.getElementById('textBgOpacity');
+    const textFont = document.getElementById('textFont');
+    const textSize = document.getElementById('textSize');
+    const textBold = document.getElementById('textBold');
+    const textItalic = document.getElementById('textItalic');
+    const textReset = document.getElementById('textReset');
+    const textFullReset = document.getElementById('textFullReset');
+    const textRemove = document.getElementById('textRemove');
+    
+    // New outline and backdrop controls
+    const textOutline = document.getElementById('textOutline');
+    const outlineWidth = document.getElementById('outlineWidth');
+    const outlineColor = document.getElementById('outlineColor');
+    const backdropStyle = document.getElementById('backdropStyle');
+    
+    // New simplified UI elements
+    const toggleAdvanced = document.getElementById('toggleAdvanced');
+    const advancedControls = document.getElementById('advancedControls');
+    
+    // Order button
+    const orderBtn = document.getElementById('orderBtn');
+    
+    // Drag and drop variables
+    let isDragging = false;
+    let dragTarget = null;
+    let startX = 0;
+    let startY = 0;
+    let initialX = 0;
+    let initialY = 0;
+
+    // History stacks for undo/redo (art + text + positions + scale)
+    const historyStack = [];
+    const redoStack = [];
+    function getState(){
+      const tLayer = document.getElementById('textLayer');
+      return {
+        artSrc: art.getAttribute('src') || '',
+        artDisplay: art.style.display || 'none',
+        artLeft: art.style.left || '50%',
+        artTop: art.style.top || '50%',
+        artScaleVal: artScale.value,
+        textContent: tLayer ? (tLayer.textContent || '') : '',
+        textDisplay: tLayer ? (tLayer.style.display || 'none') : 'none',
+        textLeft: tLayer ? (tLayer.style.left || '50%') : '50%',
+        textTop: tLayer ? (tLayer.style.top || '50%') : '50%',
+        textColor: tLayer ? (tLayer.style.color || '#ffffff') : '#ffffff',
+        textBg: tLayer ? (tLayer.style.backgroundColor || 'transparent') : 'transparent',
+        textFont: tLayer ? (tLayer.style.fontFamily || '') : '',
+        textSize: tLayer ? (tLayer.style.fontSize || '32px') : '32px',
+        textWeight: tLayer ? (tLayer.style.fontWeight || '600') : '600',
+        textStyle: tLayer ? (tLayer.style.fontStyle || 'normal') : 'normal'
+      };
+    }
+    function applyState(s){
+      // artwork
+      if (s.artSrc){ art.src = s.artSrc; art.style.display = 'block'; }
+      else { art.src = ''; art.style.display = 'none'; }
+      art.style.left = s.artLeft; art.style.top = s.artTop;
+      artScale.value = s.artScaleVal || '100'; setArtScale();
+      // text
+      const tLayer = document.getElementById('textLayer');
+      if (tLayer){
+        tLayer.textContent = s.textContent || '';
+        tLayer.style.display = s.textDisplay || (s.textContent ? 'block' : 'none');
+        tLayer.style.left = s.textLeft; tLayer.style.top = s.textTop;
+        tLayer.style.color = s.textColor || '#ffffff';
+        tLayer.style.backgroundColor = s.textBg || 'transparent';
+        if (s.textFont) tLayer.style.fontFamily = s.textFont;
+        tLayer.style.fontSize = s.textSize || '32px';
+        tLayer.style.fontWeight = s.textWeight || '600';
+        tLayer.style.fontStyle = s.textStyle || 'normal';
+      }
+      // sync inputs if present
+      const tInput = document.getElementById('textContent');
+      const tSize = document.getElementById('textSize');
+      const tBold = document.getElementById('textBold');
+      const tItalic = document.getElementById('textItalic');
+      if (tInput) tInput.value = s.textContent || '';
+      if (tSize) tSize.value = parseInt((s.textSize||'32px'),10).toString();
+      if (tBold) tBold.checked = (s.textWeight||'600') === '800';
+      if (tItalic) tItalic.checked = (s.textStyle||'normal') === 'italic';
+    }
+    function saveState(){ historyStack.push(JSON.parse(JSON.stringify(getState()))); redoStack.length = 0; }
+
+    // initial state
+    saveState();
+
+    // Product picker
+    picker.addEventListener('change', function() {
+      console.log('Product changed to:', picker.value);
+      base.src = picker.value;
+    });
+    
+    // Color controls  
+    color.addEventListener('input', function() {
+      console.log('Color changed to:', color.value);
+      tint.style.background = color.value;
+    });
+
+    opacity.addEventListener('input', function() {
+      console.log('Opacity changed to:', opacity.value);
+      tint.style.opacity = (Number(opacity.value) / 100).toString();
+    });
+    
+    // Initialize tint
+    tint.style.background = color.value;
+    tint.style.opacity = (Number(opacity.value) / 100).toString();
+
+
+    // Helper function to hide all upload sections
+    function hideAllUploadSections() {
+      photoSection.style.display = 'none';
+      logoSection.style.display = 'none';
+      otherArtSection.style.display = 'none';
+      artworkControls.style.display = 'none';
+    }
+    
+    // Helper function to show artwork controls after upload
+    function showArtworkControls() {
+      artworkControls.style.display = 'block';
+    }
+    
+    // Helper function to handle file upload and display
+    function handleFileUpload(file, uploadType) {
+      if (!file) return;
+      console.log(`${uploadType} selected:`, file.name);
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        console.log(`${uploadType} loaded, displaying artwork`);
+        art.src = e.target.result;
+        art.style.display = 'block';
+        art.style.left = '50%';
+        art.style.top = '50%';
+        showArtworkControls();
+      };
+      reader.readAsDataURL(file);
+    }
+    
+    // Artwork type choice buttons
+    choosePhoto.addEventListener('click', function() {
+      hideAllUploadSections();
+      photoSection.style.display = 'block';
+      console.log('Photo upload selected');
+    });
+    
+    chooseLogo.addEventListener('click', function() {
+      hideAllUploadSections();
+      logoSection.style.display = 'block';
+      console.log('Logo upload selected');
+    });
+    
+    chooseOtherArt.addEventListener('click', function() {
+      hideAllUploadSections();
+      otherArtSection.style.display = 'block';
+      console.log('Other artwork upload selected');
+    });
+    
+    // File upload handlers
+    photoUpload.addEventListener('change', function() {
+      const file = photoUpload.files && photoUpload.files[0];
+      handleFileUpload(file, 'Photo');
+    });
+    
+    logoUpload.addEventListener('change', function() {
+      const file = logoUpload.files && logoUpload.files[0];
+      handleFileUpload(file, 'Logo');
+    });
+    
+    otherArtUpload.addEventListener('change', function() {
+      const file = otherArtUpload.files && otherArtUpload.files[0];
+      handleFileUpload(file, 'Other Artwork');
+    });
+    
+    // Artwork scale
+    function setArtScale() {
+      const scale = Number(artScale.value) / 100;
+      art.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    }
+    artScale.addEventListener('input', setArtScale);
+    setArtScale();
+
+    // Artwork controls
+    artReset.addEventListener('click', function() {
+      art.style.left = '50%';
+      art.style.top = '50%';
+      artScale.value = 100;
+      setArtScale();
+      console.log('Artwork reset to center');
+    });
+    
+    // Clear all functionality
+    clearAll.addEventListener('click', function() {
+      // Clear artwork
+      art.src = '';
+      art.style.display = 'none';
+      
+      // Reset all file inputs
+      photoUpload.value = '';
+      logoUpload.value = '';
+      otherArtUpload.value = '';
+      
+      // Clear text
+      textContent.value = '';
+      textLayer.textContent = '';
+      textLayer.style.display = 'none';
+      
+      // Reset artwork controls
+      artScale.value = 100;
+      setArtScale();
+      
+      // Hide upload sections and controls
+      hideAllUploadSections();
+      
+      console.log('All content cleared - back to artwork type selection');
+    });
+    
+    // Updated artwork remove functionality
+    artRemove.addEventListener('click', function() {
+      art.src = '';
+      art.style.display = 'none';
+      
+      // Clear all file inputs
+      photoUpload.value = '';
+      logoUpload.value = '';
+      otherArtUpload.value = '';
+      
+      // Hide artwork controls but keep the upload section visible
+      artworkControls.style.display = 'none';
+      
+      console.log('Artwork removed');
+    });
+
+    // Drag functionality for artwork
+    art.addEventListener('mousedown', startDrag);
+    art.addEventListener('touchstart', startDrag, { passive: false });
+
+    // Text controls - Main text input handler
+    textContent.addEventListener('input', function() {
+      const value = textContent.value.trim();
+      textLayer.textContent = value;
+      if (value) {
+        textLayer.style.display = 'block';
+        // Set initial position if not already positioned
+        if (!textLayer.style.left || textLayer.style.left === '0%') {
+          textLayer.style.left = '50%';
+          textLayer.style.top = '50%';
+        }
+        updateTextStyle();
+      } else {
+        textLayer.style.display = 'none';
+      }
+      console.log('Text updated:', value);
+    });
+
+    // Function to update text styling
+    function updateTextStyle() {
+      textLayer.style.color = textColor.value;
+      textLayer.style.fontFamily = textFont.value;
+      textLayer.style.fontSize = textSize.value + 'px';
+      textLayer.style.fontWeight = textBold.checked ? '800' : '600';
+      textLayer.style.fontStyle = textItalic.checked ? 'italic' : 'normal';
+      
+      // Handle text outline
+      if (textOutline && textOutline.checked && outlineWidth) {
+        const width = outlineWidth.value || '1';
+        const color = outlineColor ? outlineColor.value : '#000000';
+        textLayer.style.webkitTextStroke = `${width}px ${color}`;
+        // Enhanced shadow for better visibility
+        textLayer.style.textShadow = `0 2px 4px rgba(0,0,0,0.8), 0 4px 12px rgba(0,0,0,0.5), 0 0 2px ${color}`;
+      } else {
+        textLayer.style.webkitTextStroke = 'none';
+        textLayer.style.textShadow = '0 2px 4px rgba(0,0,0,0.6)';
+      }
+      
+      // Handle backdrop style
+      const backdrop = backdropStyle ? backdropStyle.value : 'pill';
+      const bgColor = textBg.value;
+      const bgOpacity = Number(textBgOpacity.value) / 100;
+      
+      if (backdrop === 'none' || bgOpacity === 0) {
+        textLayer.style.backgroundColor = 'transparent';
+        textLayer.style.padding = '0';
+        textLayer.style.borderRadius = '0';
+        textLayer.style.boxShadow = 'none';
+      } else {
+        // Convert hex to rgba for opacity
+        const r = parseInt(bgColor.slice(1, 3), 16);
+        const g = parseInt(bgColor.slice(3, 5), 16);
+        const b = parseInt(bgColor.slice(5, 7), 16);
+        const bgRgba = `rgba(${r}, ${g}, ${b}, ${bgOpacity})`;
+        
+        textLayer.style.backgroundColor = bgRgba;
+        
+        switch (backdrop) {
+          case 'pill':
+            textLayer.style.padding = '8px 16px';
+            textLayer.style.borderRadius = '50px';
+            textLayer.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
+            break;
+          case 'ribbon':
+            textLayer.style.padding = '6px 20px';
+            textLayer.style.borderRadius = '0';
+            textLayer.style.boxShadow = '0 2px 0 rgba(0,0,0,0.2), 0 4px 8px rgba(0,0,0,0.3)';
+            textLayer.style.position = 'relative';
+            break;
+          case 'badge':
+            textLayer.style.padding = '6px 12px';
+            textLayer.style.borderRadius = '4px';
+            textLayer.style.boxShadow = '0 1px 3px rgba(0,0,0,0.2), 0 2px 6px rgba(0,0,0,0.1)';
+            textLayer.style.border = '2px solid rgba(255,255,255,0.2)';
+            break;
+          case 'shadow':
+            textLayer.style.backgroundColor = 'transparent';
+            textLayer.style.padding = '4px 8px';
+            textLayer.style.borderRadius = '0';
+            textLayer.style.boxShadow = `0 0 20px ${bgRgba}, 0 0 40px ${bgRgba}`;
+            break;
+          default:
+            textLayer.style.padding = '8px 12px';
+            textLayer.style.borderRadius = '4px';
+            textLayer.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+        }
+      }
+    }
+
+    // Individual text control handlers
+    textColor.addEventListener('input', updateTextStyle);
+    textBg.addEventListener('input', updateTextStyle);
+    textBgOpacity.addEventListener('input', updateTextStyle);
+    textFont.addEventListener('change', updateTextStyle);
+    textSize.addEventListener('input', updateTextStyle);
+    textBold.addEventListener('change', updateTextStyle);
+    textItalic.addEventListener('change', updateTextStyle);
+    
+    // New outline and backdrop controls
+    if (textOutline) textOutline.addEventListener('change', updateTextStyle);
+    if (outlineWidth) outlineWidth.addEventListener('input', updateTextStyle);
+    if (outlineColor) outlineColor.addEventListener('input', updateTextStyle);
+    if (backdropStyle) backdropStyle.addEventListener('change', updateTextStyle);
+    
+    // Quick color combo buttons
+    const comboButtons = document.querySelectorAll('[data-combo]');
+    comboButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const combo = btn.getAttribute('data-combo');
+        applyColorCombo(combo);
+        updateTextStyle();
+        console.log('Applied color combo:', combo);
+      });
+    });
+    
+    // Function to apply color combinations
+    function applyColorCombo(combo) {
+      switch (combo) {
+        case 'white-black':
+          textColor.value = '#ffffff';
+          textBg.value = '#000000';
+          textBgOpacity.value = 80;
+          if (outlineColor) outlineColor.value = '#000000';
+          break;
+        case 'black-white':
+          textColor.value = '#000000';
+          textBg.value = '#ffffff';
+          textBgOpacity.value = 90;
+          if (outlineColor) outlineColor.value = '#ffffff';
+          break;
+        case 'gold-black':
+          textColor.value = '#ffd700';
+          textBg.value = '#000000';
+          textBgOpacity.value = 75;
+          if (outlineColor) outlineColor.value = '#000000';
+          break;
+        case 'white-red':
+          textColor.value = '#ffffff';
+          textBg.value = '#dc2626';
+          textBgOpacity.value = 85;
+          if (outlineColor) outlineColor.value = '#7f1d1d';
+          break;
+        case 'pink-charcoal':
+          textColor.value = '#f472b6';
+          textBg.value = '#374151';
+          textBgOpacity.value = 80;
+          if (outlineColor) outlineColor.value = '#1f2937';
+          break;
+      }
+    }
+    
+    // Style preset functionality
+    const styleButtons = document.querySelectorAll('[data-style]');
+    styleButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const style = btn.getAttribute('data-style');
+        applyStylePreset(style);
+        updateTextStyle();
+        
+        // Visual feedback
+        styleButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        console.log('Applied style preset:', style);
+      });
+    });
+    
+    // Function to apply style presets
+    function applyStylePreset(style) {
+      switch (style) {
+        case 'clean':
+          // Minimal, clean look
+          textFont.value = "system-ui, -apple-system, 'Segoe UI', Roboto, Arial";
+          textSize.value = 32;
+          textBold.checked = false;
+          textItalic.checked = false;
+          textColor.value = '#ffffff';
+          textBg.value = '#000000';
+          textBgOpacity.value = 0; // No background
+          if (outlineWidth) outlineWidth.value = 0.5;
+          if (backdropStyle) backdropStyle.value = 'none';
+          break;
+        case 'bold':
+          // Strong, attention-grabbing
+          textFont.value = "Impact, sans-serif";
+          textSize.value = 48;
+          textBold.checked = true;
+          textItalic.checked = false;
+          textColor.value = '#ffffff';
+          textBg.value = '#000000';
+          textBgOpacity.value = 85;
+          if (outlineWidth) outlineWidth.value = 2;
+          if (backdropStyle) backdropStyle.value = 'pill';
+          break;
+        case 'elegant':
+          // Sophisticated, refined
+          textFont.value = "Georgia, serif";
+          textSize.value = 40;
+          textBold.checked = false;
+          textItalic.checked = true;
+          textColor.value = '#f8f8f8';
+          textBg.value = '#2c2c2c';
+          textBgOpacity.value = 60;
+          if (outlineWidth) outlineWidth.value = 1;
+          if (backdropStyle) backdropStyle.value = 'badge';
+          break;
+        case 'impact':
+          // Maximum visibility and impact
+          textFont.value = "Impact, sans-serif";
+          textSize.value = 56;
+          textBold.checked = true;
+          textItalic.checked = false;
+          textColor.value = '#ffff00';
+          textBg.value = '#ff0000';
+          textBgOpacity.value = 90;
+          if (outlineWidth) outlineWidth.value = 3;
+          if (outlineColor) outlineColor.value = '#000000';
+          if (backdropStyle) backdropStyle.value = 'badge';
+          break;
+      }
+    }
+    
+    // Advanced controls toggle
+    if (toggleAdvanced) {
+      toggleAdvanced.addEventListener('click', function() {
+        const isVisible = advancedControls.style.display !== 'none';
+        advancedControls.style.display = isVisible ? 'none' : 'block';
+        toggleAdvanced.textContent = isVisible ? '⚙️ More options' : '⚙️ Less options';
+        console.log('Advanced controls:', isVisible ? 'hidden' : 'shown');
+      });
+    }
+
+    textReset.addEventListener('click', function() {
+      textLayer.style.left = '50%';
+      textLayer.style.top = '50%';
+      saveState();
+      console.log('Text reset to center');
+    });
+
+    // Full text reset: reset position and styling to defaults
+    textFullReset.addEventListener('click', function() {
+      // Position
+      textLayer.style.left = '50%';
+      textLayer.style.top = '50%';
+      // Content stays as-is; if empty keep hidden logic elsewhere
+      // Style defaults
+      textSize.value = 32;
+      textFont.value = "system-ui, -apple-system, 'Segoe UI', Roboto, Arial";
+      textBold.checked = false;
+      textItalic.checked = false;
+      textColor.value = '#ffffff';
+      textBg.value = '#000000';
+      textBgOpacity.value = 0;
+      updateTextStyle();
+      saveState();
+      console.log('Text fully reset to defaults');
+    });
+
+    textRemove.addEventListener('click', function() {
+      textContent.value = '';
+      textLayer.textContent = '';
+      textLayer.style.display = 'none';
+      console.log('Text removed');
+    });
+
+    // Drag functionality for text
+    textLayer.addEventListener('mousedown', startDrag);
+    textLayer.addEventListener('touchstart', startDrag, { passive: false });
+
+    // Tab switching
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const target = btn.getAttribute('data-tab');
+        
+        tabButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        tabPanels.forEach(p => p.classList.remove('active'));
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    // Order button
+    orderBtn.addEventListener('click', function() {
+      const selectedOption = picker.options[picker.selectedIndex];
+      const productLabel = selectedOption ? selectedOption.textContent : 'T-Shirt';
+      const hasText = textContent.value.trim().length > 0;
+      const hasArtwork = art.style.display !== 'none' && !!art.src;
+      
+      // Price mapping
+      const prices = {
+        'T‑Shirt': 5000,
+        'Hoodie': 7000,
+        'Mug': 3000,
+        'Plate': 2500,
+        'Feather Flag': 25000,
+        'Banner': 20000
+      };
+      
+      const price = prices[productLabel] || 5000;
+      
+      const orderDraft = {
+        source: 'custom',
+        productId: null,
+        productName: productLabel,
+        productLabel,
+        category: productLabel,
+        hasText,
+        hasArtwork,
+        tintHex: color.value,
+        image: hasArtwork ? art.src : null,
+        amount: price,
+        price: price
+      };
+      
+      try {
+        localStorage.setItem('orderDraft', JSON.stringify(orderDraft));
+        window.location.href = 'order.html';
+      } catch (e) {
+        console.error('Error saving order:', e);
+        alert('Error saving order. Please try again.');
+      }
+    });
+
+    // Drag and drop functions
+    function startDrag(e) {
+      isDragging = true;
+      dragTarget = e.target;
+      
+      // Get mouse/touch position
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      
+      startX = clientX;
+      startY = clientY;
+      
+      // Get current position
+      const rect = stage.getBoundingClientRect();
+      const currentLeft = parseFloat(dragTarget.style.left) || 50;
+      const currentTop = parseFloat(dragTarget.style.top) || 50;
+      
+      initialX = (currentLeft / 100) * rect.width;
+      initialY = (currentTop / 100) * rect.height;
+      
+      dragTarget.style.cursor = 'grabbing';
+      e.preventDefault();
+      
+      console.log('Started dragging:', dragTarget === art ? 'artwork' : 'text');
+    }
+    
+    function drag(e) {
+      if (!isDragging || !dragTarget) return;
+      
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      
+      const deltaX = clientX - startX;
+      const deltaY = clientY - startY;
+      
+      const rect = stage.getBoundingClientRect();
+      const newX = Math.max(0, Math.min(rect.width, initialX + deltaX));
+      const newY = Math.max(0, Math.min(rect.height, initialY + deltaY));
+      
+      const percentX = (newX / rect.width) * 100;
+      const percentY = (newY / rect.height) * 100;
+      
+      dragTarget.style.left = percentX + '%';
+      dragTarget.style.top = percentY + '%';
+      
+      e.preventDefault();
+    }
+    
+    function stopDrag() {
+      if (isDragging && dragTarget) {
+        dragTarget.style.cursor = 'move';
+        console.log('Stopped dragging:', dragTarget === art ? 'artwork' : 'text');
+      }
+      isDragging = false;
+      dragTarget = null;
+    }
+    
+    // Global drag events
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('touchend', stopDrag);
+    
+    // Innovation: Preview mode functionality
+    const previewButtons = document.querySelectorAll('[data-mode]');
+    previewButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const mode = btn.getAttribute('data-mode');
+        console.log('Preview mode changed to:', mode);
+        
+        // Reset all buttons
+        previewButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Apply preview mode
+        stage.className = stage.className.replace(/preview-\w+/g, '');
+        if (mode !== 'normal') {
+          stage.classList.add(`preview-${mode}`);
+        }
+      });
+    });
+    
+    // Set default preview mode
+    document.getElementById('previewNormal').classList.add('active');
+    
+    
+    
+    // Text suggestions via dropdown
+    const textSuggestionSelect = document.getElementById('textSuggestionSelect');
+    // Helper to get CSS var
+    function cssVar(name){
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+    // Apply preset styles based on category label
+    function applyTextPreset(category){
+      const cat = (category||'').toLowerCase();
+      // Base enhancements for readability
+      textLayer.style.webkitTextStroke = '1px rgba(0,0,0,0.55)';
+      textLayer.style.textShadow = '0 2px 2px rgba(0,0,0,0.8), 0 4px 10px rgba(0,0,0,0.45), 0 0 1px rgba(0,0,0,0.7)';
+      if (cat.includes('cool')){
+        textFont.value = "Impact, sans-serif";
+        textSize.value = 48;
+        textBold.checked = true;
+        textItalic.checked = false;
+        textColor.value = '#ffffff';
+        textBg.value = '#000000';
+        textBgOpacity.value = 35; // stronger for contrast
+        textLayer.style.letterSpacing = '1px';
+        textLayer.style.textTransform = 'uppercase';
+      } else if (cat.includes('love')){
+        textFont.value = "'Brush Script MT', cursive";
+        textSize.value = 46;
+        textBold.checked = false;
+        textItalic.checked = true;
+        textColor.value = '#ff4d6d';
+        textBg.value = '#000000';
+        textBgOpacity.value = 20;
+        textLayer.style.letterSpacing = '0px';
+        textLayer.style.textTransform = 'none';
+      } else if (cat.includes('birthday')){
+        textFont.value = "'Trebuchet MS', sans-serif";
+        textSize.value = 44;
+        textBold.checked = true;
+        textItalic.checked = false;
+        textColor.value = cssVar('--accent') || '#38bdf8';
+        textBg.value = '#000000';
+        textBgOpacity.value = 25;
+        textLayer.style.letterSpacing = '0.5px';
+        textLayer.style.textTransform = 'none';
+      } else if (cat.includes('rip') || cat.includes('memorial')){
+        textFont.value = "'Garamond', serif";
+        textSize.value = 40;
+        textBold.checked = false;
+        textItalic.checked = true;
+        textColor.value = '#f5f5f5';
+        textBg.value = '#000000';
+        textBgOpacity.value = 35;
+        textLayer.style.letterSpacing = '0px';
+        textLayer.style.textTransform = 'none';
+      } else {
+        // Default preset
+        textFont.value = "system-ui, -apple-system, 'Segoe UI', Roboto, Arial";
+        textSize.value = 42;
+        textBold.checked = true;
+        textItalic.checked = false;
+        textColor.value = '#ffffff';
+        textBg.value = '#000000';
+        textBgOpacity.value = 25;
+        textLayer.style.letterSpacing = '0.3px';
+        textLayer.style.textTransform = 'none';
+      }
+      updateTextStyle();
+    }
+
+    if (textSuggestionSelect) {
+      textSuggestionSelect.addEventListener('change', function() {
+        const sel = textSuggestionSelect.options[textSuggestionSelect.selectedIndex];
+        const text = textSuggestionSelect.value;
+        if (!text) return;
+        textContent.value = text;
+        textLayer.textContent = text;
+        textLayer.style.display = 'block';
+        textLayer.style.left = '50%';
+        textLayer.style.top = '50%';
+        // pick category from optgroup
+        const category = sel.parentElement && sel.parentElement.label ? sel.parentElement.label : '';
+        applyTextPreset(category);
+        saveState();
+        console.log('Text suggestion applied:', text, 'category:', category);
+      });
+    }
+    
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Ctrl/Cmd + Z for undo (if we had undo system)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
+        e.preventDefault();
+        console.log('Undo shortcut pressed (not implemented)');
+      }
+      // Ctrl/Cmd + Shift + Z for redo
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z' && e.shiftKey) {
+        e.preventDefault();
+        console.log('Redo shortcut pressed (not implemented)');
+      }
+      // Delete key to remove selected element (future feature)
+      if (e.key === 'Delete' && dragTarget) {
+        e.preventDefault();
+        if (dragTarget === art) {
+          artRemove.click();
+        } else if (dragTarget === textLayer) {
+          textRemove.click();
+        }
+      }
+    });
+    
+    
+    console.log('🚀 Design editor initialized with innovative features!');
+    console.log('💡 Try the preview modes and quick templates!');
+    console.log('🎨 Gradient color picker ready - hover and click to select colors!');
+  </script>
+</body>
+</html>
