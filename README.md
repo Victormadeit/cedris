@@ -2,6 +2,31 @@
 
 This is a clean, standalone frontend for the Cedris custom printing website. All backend dependencies have been removed.
 
+## 🌐 Live Website
+**https://victormadeit.github.io/cedris/**
+
+## 🚀 Automated Deployment
+
+This project uses GitHub Actions for automated deployment to GitHub Pages. Every time you push code to the `main` branch, your website is automatically updated!
+
+### How it works:
+1. **Push code** to main branch
+2. **GitHub Actions** automatically builds and deploys
+3. **Live website** updates within minutes
+4. **Zero manual work** required!
+
+### Development Workflow:
+```bash
+# Make your changes to HTML, CSS, JS files
+# Then commit and push:
+
+git add .
+git commit -m "Description of your changes"
+git push
+
+# That's it! Your changes will be live automatically!
+```
+
 ## What's Working
 
 ✅ **Homepage** - Fully functional with hero slideshow and product showcase  
@@ -36,6 +61,9 @@ This is a clean, standalone frontend for the Cedris custom printing website. All
 ├── styles.css          # All styling
 ├── favicon.png         # Site icon
 ├── logo.png           # Company logo
+├── .github/
+│   └── workflows/
+│       └── deploy.yml  # Automated deployment configuration
 └── [product images]    # All design showcase images
 ```
 
